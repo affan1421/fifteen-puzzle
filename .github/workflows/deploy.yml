@@ -3,7 +3,7 @@ name: Staging - Frontend
 on:
   push:
     branches:
-      - main
+      - master
 
 jobs:
   Build_And_Copy_files_to_EC2:
@@ -27,7 +27,7 @@ jobs:
       - name: COPY BUILD FILES TO EC2
         uses: garygrossgarten/github-action-scp@release
         with:
-          local: /home/runner/work/FrontendDev/FrontendDev/dist/
+          local: /home/runner/work/fifteen-puzzle/fifteen-puzzle/dist/
           remote: /var/www/html/
           host: 18.234.152.248  
           username: ubuntu
