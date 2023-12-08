@@ -1,0 +1,34 @@
+name: Staging - Frontend
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  Build_And_Copy_files_to_EC2:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout the files
+        uses: actions/checkout@v3
+
+      - name: SETUP NODE.JS ENVIRONMENT
+        uses: actions/setup-node@v3.3.0
+        with:
+          node-version: 14
+
+      - name: NPM INSTALL & NPM BUILD
+        run: |
+          npm install
+          npm run build
+          pwd
+
+      - name: COPY BUILD FILES TO EC2
+        uses: garygrossgarten/github-action-scp@release
+        with:
+          local: /home/runner/work/FrontendDev/FrontendDev/dist/
+          remote: /var/www/html/
+          host: 18.234.152.248  
+          username: ubuntu
+          password: qwer
